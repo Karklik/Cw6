@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Cw6
 {
@@ -21,6 +22,9 @@ namespace Cw6
         {
             services.AddTransient<IStudentDbService, SqlServerStudentDbService>();
             services.AddControllers();
+            services.AddSwaggerGen(config =>
+                config.SwaggerDoc("v1", new OpenApiInfo { Title = "Students App API", Version = "v1" })
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +36,11 @@ namespace Cw6
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(config => 
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "Students App API")
+            );
 
             app.UseRouting();
 
