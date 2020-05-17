@@ -1,6 +1,8 @@
 using Cw6.DAL;
+using Cw6.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,9 +40,11 @@ namespace Cw6
             app.UseHttpsRedirection();
 
             app.UseSwagger();
-            app.UseSwaggerUI(config => 
+            app.UseSwaggerUI(config =>
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "Students App API")
             );
+
+            app.UseMiddleware<IndexMiddleware>();
 
             app.UseRouting();
 
