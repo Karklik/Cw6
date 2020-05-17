@@ -44,6 +44,7 @@ namespace Cw6
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "Students App API")
             );
 
+            app.UseMiddleware<LoggingMiddleware>();
             app.UseMiddleware<IndexMiddleware>();
 
             app.UseRouting();
